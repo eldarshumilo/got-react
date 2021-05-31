@@ -1,0 +1,9 @@
+.togButton{
+    width: 250px;
+    background-color: aqua;
+    border-radius: 10px;
+    font-size: 20px;
+    border: none;
+    margin-bottom: 20px;
+    padding: 4px;
+}

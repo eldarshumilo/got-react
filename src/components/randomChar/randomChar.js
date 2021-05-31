@@ -45,13 +45,13 @@ export default class RandomChar extends Component {
     }
 
     updateChar() {
-        // const id = Math.floor(Math.random()*140 + 25); //25-140
-        const id = 13000
+        const id = Math.floor(Math.random()*140 + 25); //25-140?
         this.gotService.getChatacter(id)
             .then(this.onCharLoaded)
             .catch(this.onError);
     }
 
+    
 
     render() {
         const {char, loading, error } = this.state;
@@ -72,25 +72,33 @@ export default class RandomChar extends Component {
 
 const View = ({char})=>{
     const {name, gender, born, died, culture}= char;
+    const noData = function(info){
+        if (info) {
+            return info;
+        } else {
+            console.log(info);
+            return 'no data :(';
+        }
+    }
     return(
         <>
             <H4>Random Character: {name}</H4>
             <ul className="list-group list-group-flush">
                 <li className="list-group-item d-flex justify-content-between">
                     <SP>Gender </SP>
-                    <span>{gender}</span>
+                    <span>{noData(gender)}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
                     <SP>Born </SP>
-                    <span>{born}</span>
+                    <span>{noData(born)}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
                     <SP>Died </SP>
-                    <span>{died}</span>
+                    <span>{noData(died)}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
                     <SP>Culture </SP>
-                    <span>{culture}</span>
+                    <span>{noData(culture)}</span>
                 </li>
             </ul>
         </>
