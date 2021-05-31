@@ -12,10 +12,22 @@ export default class GotServices {
         return await res.json();
     }
     getAllCharacters(){
-        returm this.getResource (`/characters?page=5&pageSize=10`);
+        return this.getResource (`/characters?page=5&pageSize=10`);
     }
     getChatacter(id){
         return this.getResource(`/characters/${id}`);
+    }
+    getAllBooks(){
+        return this.getResource('/books/');
+    }
+    getBook(id){
+        return this.getResource(`/books/${id}`);
+    }
+    getAllHouses(){
+        return this.getResource('/houses/');
+    }
+    getHouse(id){
+        return this.getResource(`/houses/${id}`);
     }
 }
 
