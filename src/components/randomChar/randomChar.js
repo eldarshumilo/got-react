@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import Spinner from '../spinner';
 import ErrorMessage from '../error';
-import gotService from '../../services/gotServices'
+import gotService from '../../services';
+import noData from '../noData';
 const Block = styled.div`
     background-color: #fff;
     padding: 25px 25px 15px 25px;
@@ -19,15 +20,19 @@ const Block = styled.div`
 
 export default class RandomChar extends Component {
     
-    constructor() {
-        super();
-        this.updateChar();
-    }
-    
     gotService = new gotService();
     state= {
         char:{},
         loading: true
+    }
+
+    componentDidMount(){
+        this.updateChar();
+        this.timerID = setInterval(this.updateChar, 4000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.timerID);
     }
 
     onCharLoaded = (char) => {
@@ -44,7 +49,8 @@ export default class RandomChar extends Component {
         })
     }
 
-    updateChar() {
+    updateChar = () => {
+        console.log('update')
         const id = Math.floor(Math.random()*140 + 25); //25-140?
         this.gotService.getChatacter(id)
             .then(this.onCharLoaded)
@@ -72,14 +78,7 @@ export default class RandomChar extends Component {
 
 const View = ({char})=>{
     const {name, gender, born, died, culture}= char;
-    const noData = function(info){
-        if (info) {
-            return info;
-        } else {
-            console.log(info);
-            return 'no data :(';
-        }
-    }
+    
     return(
         <>
             <H4>Random Character: {name}</H4>

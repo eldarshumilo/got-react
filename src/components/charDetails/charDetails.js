@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import Spinner from '../spinner';
+import noData from '../noData';
+import gotService from '../../services';
 
 const Header = styled.div`
     background-color: #fff;
@@ -14,26 +17,61 @@ const Header = styled.div`
 ;
 export default class CharDetails extends Component {
 
+    gotService = new gotService();
+
+    state = {
+        char: null
+    }
+
+    componentDidMount(){
+        this.updateChar();
+    }
+
+    componentDidUpdate(prevProps){
+        if (this.props.charId !== prevProps.charId){
+            this.updateChar();
+        }
+    }
+
+    updateChar(){
+        const{charId} = this.props;
+        if (!charId) {
+            return;
+        }
+
+        this.gotService.getChatacter(charId)
+            .then((char)=>{
+                this.setState({char})
+            })
+    }
+
     render() {
+
+        if (!this.state.char) {
+            return <span className='select-error'>Please select a character</span>
+        }
+
+        const {name, gender, born, died, culture} = this.state.char;
+
         return (
             <Header>
-                <H4>John Snow</H4>
+                <H4>{noData(name)}</H4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
                         <span className="term">Gender</span>
-                        <span>male</span>
+                        <span>{noData(gender)}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                         <span className="term">Born</span>
-                        <span>1783</span>
+                        <span>{noData(born)}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                         <span className="term">Died</span>
-                        <span>1820</span>
+                        <span>{noData(died)}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                         <span className="term">Culture</span>
-                        <span>First</span>
+                        <span>{noData(culture)}</span>
                     </li>
                 </ul>
             </Header>

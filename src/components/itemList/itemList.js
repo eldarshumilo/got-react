@@ -1,27 +1,56 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-
-const listItem = styled.li`
+import gotService from '../../services';
+import Spinner from '../spinner';
+const ListItem = styled.li`
     cursor: pointer;
 `,
-    unorderedList = styled.ul`
+    UnorderedList = styled.ul`
     cursor: pointer;    
 `;
 export default class ItemList extends Component {
 
+    gotService = new gotService();
+
+    state = {
+        charList: null
+    }
+
+    componentDidMount(){
+        this.gotService.getAllCharacters()
+            .then((charList)=>{
+                this.setState({
+                    charList
+                })
+            })
+    }
+
+    renderItems(arr){
+        return arr.map((item, index) => {
+            return (
+                <ListItem 
+                    key = {index}
+                    className="list-group-item"
+                    onClick={() => this.props.onCharSelected(41 + index)}>
+                    {item.name}
+                </ListItem>
+            )
+        })
+    }
     render() {
+
+        const {charList} = this.state;
+
+        if(!charList){
+            return <Spinner/>
+        }
+
+        const items = this.renderItems(charList);
+
         return (
-            <unorderedList className="item-list list-group">
-                <listItem className="list-group-item">
-                    John Snow
-                </listItem>
-                <listItem className="list-group-item">
-                    Brandon Stark
-                </listItem>
-                <listItem className="list-group-item">
-                    Geremy
-                </listItem>
-            </unorderedList>
+            <UnorderedList className="item-list list-group">
+                {items}
+            </UnorderedList>
         );
     }
 }
