@@ -5,7 +5,9 @@ import RandomChar from '../randomChar';
 import CharacterPage from '../characterPage';
 import ErrorMessage from '../error';
 import './toggleButton.css';
-
+import gotService from '../../services';
+import ItemList from '../itemList';
+import CharDetails from '../charDetails';
 
 
 class ToggleButton extends React.Component {
@@ -22,7 +24,7 @@ class ToggleButton extends React.Component {
       }));
   
     }
-  
+    
     render() {
       return (
         <>
@@ -35,22 +37,18 @@ class ToggleButton extends React.Component {
     }
 }
 
-
-
 export default class App extends Component{
 
     state = {
         error: false
     }
-
+    gotService = new gotService();
     componentDidCatch(){
         console.log('error');
         this.setState({
             error: true
         })
     }
-
-    
 
     render() {
 
@@ -74,6 +72,26 @@ export default class App extends Component{
                         </Col>
                     </Row>
                     <CharacterPage/>
+                    {/* <Row>
+                        <Col md='6'>
+                            <ItemList 
+                                onCharSelected={this.onCharSelected}
+                                getData={this.gotService.getAllBooks}/>
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId={this.state.selectedChar}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md='6'>
+                            <ItemList 
+                                onCharSelected={this.onCharSelected}
+                                getData={this.gotService.getAllHouses}/>
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId={this.state.selectedChar}/>
+                        </Col>
+                    </Row> */}
                 </Container>
             </>
         );
