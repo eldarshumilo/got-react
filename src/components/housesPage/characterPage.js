@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import ItemList from '../itemList';
-import CharDetails, {Field} from '../itemDetails';
+import CharDetails, {Field} from '../charDetails';
 import gotService from '../../services';
 import ErrorMessage from '../error';
 import RowBlock from '../rowBlock';

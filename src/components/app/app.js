@@ -7,7 +7,8 @@ import ErrorMessage from '../error';
 import './toggleButton.css';
 import gotService from '../../services';
 import ItemList from '../itemList';
-import CharDetails from '../charDetails';
+import ItemDetails from '../itemDetails';
+import BooksPage from '../booksPage';
 
 
 class ToggleButton extends React.Component {
@@ -72,26 +73,18 @@ export default class App extends Component{
                         </Col>
                     </Row>
                     <CharacterPage/>
-                    {/* <Row>
-                        <Col md='6'>
-                            <ItemList 
-                                onCharSelected={this.onCharSelected}
-                                getData={this.gotService.getAllBooks}/>
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar}/>
-                        </Col>
-                    </Row>
+                    <BooksPage/>
                     <Row>
                         <Col md='6'>
                             <ItemList 
-                                onCharSelected={this.onCharSelected}
-                                getData={this.gotService.getAllHouses}/>
+                                onItemSelected={this.onItemSelected}
+                                getData={this.gotService.getAllHouses}
+                                renderItem={(item) => item.name}/>
                         </Col>
                         <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar}/>
+                            <ItemDetails charId={this.state.selectedChar}/>
                         </Col>
-                    </Row> */}
+                    </Row>
                 </Container>
             </>
         );
